@@ -1,15 +1,17 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import { useColorScheme } from 'react-native';
+import { Stack } from "expo-router";
+import {useFonts} from "expo-font"
+import { ActivityIndicator } from "react-native";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+export default function RootLayout() {
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
-  );
+  const [fontsloaded]= useFonts({
+    "appFont": require("@/assets/fonts/PlayfairDisplay-Regular.ttf"),
+    "appFontBold": require("@/assets/fonts/PlayfairDisplay-Bold.ttf"),
+    "appFontItalic": require("@/assets/fonts/PlayfairDisplay-Italic.ttf")
+  })
+
+  if (!fontsloaded) {
+    <ActivityIndicator/>
+  }
+  return <Stack />;
 }
